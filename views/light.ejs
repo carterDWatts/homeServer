@@ -5,7 +5,24 @@
   </head>
   <body>
     <%- include('partials/nav'); %>
-    <h1>Light #<%= light_num %> </h1>
+    <h1>Light #<%= light_num %>  [<%= data.version %>]</h1>
     <p><strong>LED Status: </strong> <%= data.leds_powered %> </p>
+    <p><strong>LED colors: </strong> <%= data.colors %> </p>
+    <p><strong>LED Msg: </strong> <%= data.msg %> </p>
+
+    <form action="/api" method="get" onsubmit="setTimeout(function(){window.location.reload();},10);">
+      <input type = "hidden" name = "light_num" value = "<%= light_num %>" />
+        <input type = "hidden" name = "colors" value = "1" />
+        <input type = "hidden" name = "msg" value = "setting light to color 1" />
+      <button type="submit" formmethod="post">1</button>
+    </form>
+
+    <form action="/api" method="get" onsubmit="setTimeout(function(){window.location.reload();},10);">
+      <input type = "hidden" name = "light_num" value = "<%= light_num %>" />
+      <input type = "hidden" name = "colors" value = "2" />
+      <input type = "hidden" name = "msg" value = "setting light to color 2" />
+      <button type="submit" formmethod="post">2</button>
+    </form>
+
   <body>
 </html>

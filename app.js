@@ -85,7 +85,7 @@ app.get('/api/lights', function(req,res){
 //API, responds w/ json data to unit specific
 app.get('/api/:light_num', function(req,res){
 
-  var sql = "SELECT * FROM lights WHERE fan_num ='"+req.params.light_num +"'";
+  var sql = "SELECT * FROM lights WHERE light_num ='"+req.params.light_num +"'";
   con.query(sql, (error, results, fields) => {
     if (error) throw err;
 
@@ -107,31 +107,37 @@ app.get('/api/:light_num', function(req,res){
 app.post('/api', urlencodedParser, function (req, res) {
 
   var date = new Date();
-  var sql = "INSERT INTO lights ("+
-  "light_num, "+
-  "brightness, "+
-  "colors, "+
-  "leds_powered"+
-  ") VALUES (" +
-    "'"+req.body.light_num+"', "+
-    "'"+req.body.brightness+"', "+
-    "'"+req.body.colors+"', "+
-    "'"+req.body.leds_powered+"'"+
-    ") ON DUPLICATE KEY UPDATE "+
-    "brightness = "+
-    "'"+req.body.brightness+"', "+
-    "colors = "+
-    "'"+req.body.colors+"', "+
-    "leds_powered = "+
-    "'"+req.body.leds_powered+"'";
+  var sql = "INSERT INTO lights (";
+    if(req.body.version != undefined)       sql += "version, ";
+    if(req.body.brightness != undefined)    sql += "brightness, ";
+    if(req.body.colors != undefined)        sql += "colors, ";
+    if(req.body.leds_powered != undefined)  sql += "leds_powered, ";
+    sql +="msg, ";
+    sql += "light_num"+
+    ") VALUES (";
+      if(req.body.version != undefined)      sql += "'"+req.body.version+"', ";
+      if(req.body.brightness != undefined)   sql += "'"+req.body.brightness+"', ";
+      if(req.body.colors != undefined)       sql +="'"+req.body.colors+"', ";
+      if(req.body.leds_powered != undefined) sql += "'"+req.body.leds_powered+"', ";
+      sql +="'"+req.body.msg+"', ";
+      sql += "'"+req.body.light_num+"'"+
+      ") ON DUPLICATE KEY UPDATE ";
+      if(req.body.version != undefined)     sql += "version = '"+req.body.version+"', ";
+      if(req.body.brightness != undefined)  sql += "brightness = '"+req.body.brightness+"', ";
+      if(req.body.colors != undefined)      sql += "colors = '"+req.body.colors+"', ";
+      if(req.body.leds_powered != undefined)  sql +="leds_powered = '"+req.body.leds_powered+"', ";
+      sql += "msg = '"+req.body.msg+"'";
+
 	con.query(sql, function(err, result){
 		if (err) throw err;
-    //console.log(sql);
+    console.log(sql);
 	});
 
-	console.log('POST # '+req.body.light_num+' ('+ req.body.leds_powered+')');
-  res.send('POST request from fan# ' + req.body.light_num + ' ('+ req.body.leds_powered+')');
+	//console.log('POST # '+req.body.light_num+' ('+ req.body.leds_powered+')');
+  console.log(req.body);
+  res.sendStatus(202);
+  //res.send('POST request from light # ' + req.body.light_num + ' ('+ req.body.leds_powered+') colors: '+req.body.colors);
 	//location.reload() TODO: figure this out
-})
+});
 
 app.listen(3000);

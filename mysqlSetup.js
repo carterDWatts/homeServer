@@ -52,9 +52,11 @@ con.query(sql, function (err, result) {
 
   var sql = "CREATE TABLE lights ("+
     "light_num VARCHAR(255),"+
+    "version VARCHAR(255),"+
     "brightness VARCHAR(255),"+
     "colors VARCHAR(255),"+
     "leds_powered VARCHAR(255),"+
+    "msg VARCHAR(255),"+
     "UNIQUE KEY (light_num)"+
     ")";
 
@@ -65,14 +67,18 @@ con.query(sql, function (err, result) {
 
     var sql = "INSERT INTO lights ("+
       "light_num, "+
+      "version, "+
       "brightness, "+
       "colors, "+
-      "leds_powered"+
+      "leds_powered, "+
+      "msg"+
       ") VALUES (" +
-      "'-1', " +
+      "'1', " +
+      "'0', " +
       "'255', " +
-      "'red', " +
-      "'1'" +
+      "'2', " +
+      "'1', " +
+      "'example for testing'" +
       ")";
 
     //con.query(sql, [values], function (err, result) {
