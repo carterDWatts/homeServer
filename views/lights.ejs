@@ -9,7 +9,8 @@
     <ul>
       <% data.forEach(function(light){ %>
         <li> <a href="/lights/<%= light.light_num %>">Light# <%= light.light_num %></a></li>
-        <p> LED Status: <%= light.leds_powered %> </p>
+        <p> LED colors: <%= light.colors %> </p>
+        <p> LED msg: <%= light.msg %> </p>
         <br></br>
       <% }); %>
     </ul>

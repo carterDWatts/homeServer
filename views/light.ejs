@@ -24,5 +24,19 @@
       <button type="submit" formmethod="post">2</button>
     </form>
 
+    <form action="/api" method="get" onsubmit="setTimeout(function(){window.location.reload();},10);">
+      <input type = "hidden" name = "light_num" value = "<%= light_num %>" />
+      <input type = "hidden" name = "colors" value = "3" />
+      <input type = "hidden" name = "msg" value = "setting light to color 3" />
+      <button type="submit" formmethod="post">3</button>
+    </form>
+
+    <form action="/api" method="get" onsubmit="setTimeout(function(){window.location.reload();},10);">
+      <input type = "hidden" name = "light_num" value = "<%= light_num %>" />
+      <input type = "hidden" name = "colors" value = "4" />
+      <input type = "hidden" name = "msg" value = "setting light to color 4" />
+      <button type="submit" formmethod="post">4</button>
+    </form>
+
   <body>
 </html>

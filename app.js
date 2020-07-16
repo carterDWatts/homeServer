@@ -130,11 +130,11 @@ app.post('/api', urlencodedParser, function (req, res) {
 
 	con.query(sql, function(err, result){
 		if (err) throw err;
-    console.log(sql);
+    //console.log(sql);
 	});
 
-	//console.log('POST # '+req.body.light_num+' ('+ req.body.leds_powered+')');
-  console.log(req.body);
+	console.log('POST light #'+req.body.light_num+' ('+ req.body.leds_powered+')');
+  //console.log(req.body);
   res.sendStatus(202);
   //res.send('POST request from light # ' + req.body.light_num + ' ('+ req.body.leds_powered+') colors: '+req.body.colors);
 	//location.reload() TODO: figure this out
